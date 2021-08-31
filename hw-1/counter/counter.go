@@ -6,11 +6,11 @@ import (
   "unicode"
   "sort"
   "strconv"
-  
+  "fmt"
+
 )
 
 func Count(text string, n int) []string{
-
 
 
   text=strings.ToLower(text)
@@ -34,9 +34,11 @@ func Count(text string, n int) []string{
     return words[keys[i]]>words[keys[j]]
   })
 
-
+  if n<0{
+    fmt.Println("invalid syntax")
+    return nil}
   result:=make([]string,n,n)
-  for y:=0; y<len(result);y++{
+  for y:=0; y<len(result)&&y<len(keys);y++{
     result[y]=keys[y] +" : "+ strconv.Itoa(words[keys[y]])
   }
 
