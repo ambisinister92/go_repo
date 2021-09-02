@@ -39,13 +39,11 @@ func CalculateAverageAge(h ...Human) float64 {
 		allage += float64(v.GetAge())
 	}
 
-	int, frac:=math.Modf(allage/float64(len(h)))
-	frac,_=math.Modf(frac*100)
-	frac=frac/100
+	int, frac := math.Modf(allage / float64(len(h)))
+	frac, _ = math.Modf(frac * 100)
+	frac = frac / 100
 
-
-
-	return int+frac
+	return int + frac
 
 }
 
