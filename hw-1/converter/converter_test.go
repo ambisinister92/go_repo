@@ -25,8 +25,7 @@ var convertorTests = []convertorTest{
 
 func TestConvertToString(t *testing.T) {
 
-	for i := range convertorTests {
-		test := &convertorTests[i]
+	for _,test := range convertorTests {
 		c := Converter{}
 		out, err := c.ConvertToString(test.in)
 		if test.out != out || !reflect.DeepEqual(test.err, err) {

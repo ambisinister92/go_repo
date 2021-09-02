@@ -27,24 +27,42 @@ type Converter struct {
 
 func (c Converter) ConvertToString(value interface{}) (string, error) {
 	const fnConvertToString = "ConvertToString"
-	var s string
 
 	if value == nil {
 		return "", EmptyArgError(fnConvertToString)
 	}
 
-	switch value.(type) {
-	case int, int64, int32, int16, int8:
-		s = strconv.FormatInt(int64(value.(int64)), 10)
-	case uint, uint64, uint32, uint16, uint8:
-		s = strconv.FormatUint(uint64(value.(uint64)), 10)
+	switch s := value.(type) {
+	case string:
+		return s, nil
 	case bool:
-		s = strconv.FormatBool(value.(bool))
-	case float64, float32:
-		s = strconv.FormatFloat(value.(float64), 'E', -1, 64)
+		return strconv.FormatBool(s), nil
+	case float64:
+		return strconv.FormatFloat(s, 'f', -1, 64), nil
+	case float32:
+		return strconv.FormatFloat(float64(s), 'f', -1, 32), nil
+	case int:
+		return strconv.Itoa(s), nil
+	case int64:
+		return strconv.FormatInt(s, 10), nil
+	case int32:
+		return strconv.Itoa(int(s)), nil
+	case int16:
+		return strconv.FormatInt(int64(s), 10), nil
+	case int8:
+		return strconv.FormatInt(int64(s), 10), nil
+	case uint:
+		return strconv.FormatUint(uint64(s), 10), nil
+	case uint64:
+		return strconv.FormatUint(uint64(s), 10), nil
+	case uint32:
+		return strconv.FormatUint(uint64(s), 10), nil
+	case uint16:
+		return strconv.FormatUint(uint64(s), 10), nil
+	case uint8:
+		return strconv.FormatUint(uint64(s), 10), nil
 	default:
-		s = "unsupported value"
+		return "unsupported value", nil
 	}
 
-	return s, nil
 }
