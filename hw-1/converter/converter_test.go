@@ -1,7 +1,7 @@
 package converter_test
 
 import (
-	"reflect"
+	"errors"
 	"testing"
 
 	. "hw-1/converter"
@@ -13,24 +13,39 @@ type convertorTest struct {
 	err error
 }
 
-var convertorTests = []convertorTest{
+var convertorTests = []struct {
+	name string
+	in   interface{}
+	out  string
+	err  error
+}{
 
-	{nil, "", ErrEmpty},
-	{15.01, "15.01", nil},
-	{"some string", "unsupported value", nil},
-	{true, "true", nil},
-	{-2147483649, "-2147483649", nil},
-	{int64(-2147483649), "-2147483649", nil},
+	{"1", nil, "", ErrEmpty},
+	{"2", 15.01, "15.01", nil},
+	{"3", "some string", "some string", nil},
+	{"4", true, "true", nil},
+	{"5", -2147483649, "-2147483649", nil},
+	{"6", int64(-2147483649), "-2147483649", nil},
 }
 
 func TestConvertToString(t *testing.T) {
 
-	for _,test := range convertorTests {
-		c := Converter{}
-		out, err := c.ConvertToString(test.in)
-		if test.out != out || !reflect.DeepEqual(test.err, err) {
-			t.Errorf("ConvertToString(%q) = %v, %v want %v, %v",
-				test.in, out, err, test.out, test.err)
-		}
+	c := Converter{}
+
+	for _, test := range convertorTests {
+		t.Run(test.name, func(t *testing.T) {
+
+			out, err := c.ConvertToString(test.in)
+			if err != nil {
+				if !errors.Is(err, test.err) {
+					t.Errorf("ConvertToString() error = %v, wantErr %v", err, test.err)
+				}
+
+			}
+			if out != test.out {
+				t.Errorf("ConvertToString() got != want\n%#v\n%#v", out, test.out)
+			}
+		})
+
 	}
 }

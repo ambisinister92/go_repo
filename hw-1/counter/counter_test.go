@@ -13,12 +13,17 @@ type countTest struct {
 	out []string
 }
 
-var countTests = []countTest{
+var countTests = []struct {
+	in  string
+	num int
+	out []string
+}{
 
 	{"|/*?%$^*()~!", 4, []string{"", "", "", ""}},
 	{"|/*?%$^*()~!", 0, []string{}},
 	{"мама мыла Раму, Раму мыла мама !!!!", -1, nil},
 	{"мама мыла Раму, Раму мыла мама !!!!", 2, []string{"мама : 2", "мыла : 2"}},
+	{"🤷‍♀️", 5, []string{"", "", "", "", ""}},
 }
 
 func TestCount(t *testing.T) {
