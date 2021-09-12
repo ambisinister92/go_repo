@@ -19,11 +19,16 @@ type light struct {
 
 func (l light) light() {
 	ticker := time.NewTicker(1 * time.Second)
-	for i := l.time; i >= 0; i-- {
+	time:=l.time
+	for {
 		select {
 		case <-ticker.C:
-			fmt.Printf("traffic light: %s: %v seconds left\n", l.color, i)
+			fmt.Printf("traffic light: %s: %v seconds left\n", l.color, time)
 		}
+		if time==0	{
+			return
+		}
+		time--
 	}
 }
 
@@ -34,9 +39,12 @@ func GoTrafficLights() {
 		{"yellow", yellow},
 		{"green", green},
 	}
+	cicles:=3
 	var wg sync.WaitGroup
 
-	for i := 0; i < 3; i++ {
+	
+
+	for {
 		for _, l := range lights {
 			wg.Add(1)
 			go func(l light) {
@@ -45,6 +53,10 @@ func GoTrafficLights() {
 			}(l)
 			wg.Wait()
 		}
+		if cicles==0{
+			return
+		}
+		cicles--
 	}
 
 }
