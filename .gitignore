@@ -1,5 +1,5 @@
 *.exe
 ~*
-*.idea
+**/.idea
 *.json
 *.yaml
