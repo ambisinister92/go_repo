@@ -40,7 +40,7 @@ func TestConvertToString(t *testing.T) {
 				if !errors.Is(err, test.err) {
 					t.Errorf("ConvertToString() error = %v, wantErr %v", err, test.err)
 				}
-
+				return
 			}
 			if out != test.out {
 				t.Errorf("ConvertToString() got != want\n%#v\n%#v", out, test.out)
