@@ -39,6 +39,9 @@ func GoTrafficLights() {
 		{"yellow", yellow},
 		{"green", green},
 	}
+	next:= make(chan string)
+	steady:=make (chan  string)
+
 	cicles:=3
 	var wg sync.WaitGroup
 
