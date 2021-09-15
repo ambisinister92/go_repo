@@ -1,10 +1,8 @@
-package converter_test
+package converter
 
 import (
 	"errors"
 	"testing"
-
-	. "hw-1/converter"
 )
 
 type convertorTest struct {

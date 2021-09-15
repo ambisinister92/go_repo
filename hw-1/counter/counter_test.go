@@ -1,10 +1,8 @@
-package counter_test
+package counter
 
 import (
 	"reflect"
 	"testing"
-
-	. "hw-1/counter"
 )
 
 type countTest struct {
