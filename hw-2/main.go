@@ -11,13 +11,13 @@ import (
 
 func main() {
 
-	tlights:=flag.Bool("lightsUp", false,  "enable traffic lights")
+	tLights:=flag.Bool("lightsUp", false,  "enable traffic lights")
 	var s string
 	flag.StringVar(&s,"toYaml","","make yaml from specified json")
 	flag.Parse()
 
 
-	if *tlights{
+	if *tLights{
 		trafficlights.GoTrafficLights()
 	}
 	if s!=""{
