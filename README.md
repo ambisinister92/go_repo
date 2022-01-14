@@ -1,2 +1,2 @@
-# fesenko_dmytro_gogo-2021-08
-
+# go_repo
+Some simple tasks on golang
